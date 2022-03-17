@@ -1,0 +1,32 @@
+version: "3.9"
+services:
+  mysqldb:
+    image: mysql/mysql-server
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    volumes:
+      - ./mysql:/docker-entrypoint-initdb.d
+    environment:
+      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_DATABASE: weather
+    ports:
+      - 3306:3306
+    networks:
+      - mysql-nw
+
+  sensor-server:
+    depends_on:
+      - mysqldb
+    networks:
+      - mysql-nw
+    container_name: sensor-server
+    build: ./service
+    environment:
+      MYSQL_IP: mysqldb
+      MYSQL_PORT: 3306
+    ports:
+      - 8090:8090
+
+networks:
+  mysql-nw:
+    driver: bridge
