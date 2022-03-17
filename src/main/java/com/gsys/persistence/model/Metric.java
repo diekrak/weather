@@ -1,6 +1,7 @@
 package com.gsys.persistence.model;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -9,9 +10,15 @@ public class Metric {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;
     private String name;
-    private Date dateCreated;
+    private LocalDate dateCreated;
 
     public Metric() {
+    }
+
+    public Metric(Integer id, String name, LocalDate dateCreated) {
+        this.id = id;
+        this.name = name;
+        this.dateCreated = dateCreated;
     }
 
     public Integer getId() {
@@ -30,11 +37,11 @@ public class Metric {
         this.name = name;
     }
 
-    public Date getDateCreated() {
+    public LocalDate getDateCreated() {
         return dateCreated;
     }
 
-    public void setDateCreated(Date dateCreated) {
+    public void setDateCreated(LocalDate dateCreated) {
         this.dateCreated = dateCreated;
     }
 }

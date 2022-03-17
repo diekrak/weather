@@ -3,6 +3,7 @@ package com.gsys.persistence.model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -14,11 +15,13 @@ public class SensorReading {
     private Long id;
     private String sensorId;
     private Integer metricId;
-    private Long value;
+    private Double value;
+    private LocalDate date;
 
-    private Date date;
+    public SensorReading() {
+    }
 
-    public SensorReading(String sensorId, Integer metricId, Long value, Date date) {
+    public SensorReading(String sensorId, Integer metricId, Double value, LocalDate date) {
         this.sensorId = sensorId;
         this.metricId = metricId;
         this.value = value;
@@ -49,18 +52,18 @@ public class SensorReading {
         this.metricId = metricId;
     }
 
-    public Long getValue() {
+    public Double getValue() {
         return value;
     }
 
-    public void setValue(Long value) {
+    public void setValue(Double value) {
         this.value = value;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 }

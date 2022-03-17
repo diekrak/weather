@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Optional;
 
 @RestController
@@ -22,10 +22,9 @@ public class SensorController {
     @PostMapping("/register")
     public ResponseEntity<GenericResponse> registerSensor(@RequestBody SensorRequest sensorRequest){
         if (sensorRepository.findById(sensorRequest.getId()).isPresent() ){
-            return ResponseEntity.status(201).body(new GenericResponse(MessageResponse.SENSOR_EXIST));
+            return ResponseEntity.status(201).body(new GenericResponse(MessageResponse.SENSOR_ALREADY_REGISTERED));
         }
-        Date now = new Date();
-        sensorRepository.save(new Sensor(sensorRequest.getId(),sensorRequest.getCity(),sensorRequest.getCountry(),true, now, now));
+        sensorRepository.save(new Sensor(sensorRequest.getId(),sensorRequest.getCity(),sensorRequest.getCountry(),true, LocalDate.now(), LocalDate.now()));
         return ResponseEntity.ok().body(new GenericResponse(MessageResponse.SENSOR_ADDED ));
     }
 
@@ -35,11 +34,11 @@ public class SensorController {
         if (sensorOptional.isPresent() ){
             Sensor sensor = sensorOptional.get();
             sensor.setActive(false);
-            sensor.setDateUpdate( new Date());
+            sensor.setDateUpdate( LocalDate.now());
             sensorRepository.save(sensor);
-            return ResponseEntity.status(201).body(new GenericResponse(1, "The Sensor is inactive"));
+            return ResponseEntity.ok().body(new GenericResponse(MessageResponse.SENSOR_INACTIVE));
         }
-        return ResponseEntity.ok().body(new GenericResponse(-1, "The Sensor does not exists"));
+        return ResponseEntity.status(201).body(new GenericResponse(MessageResponse.SENSOR_NOT_EXIST));
     }
 
     @PutMapping("/activate/{id}")
@@ -48,11 +47,11 @@ public class SensorController {
         if (sensorOptional.isPresent() ){
             Sensor sensor = sensorOptional.get();
             sensor.setActive(true);
-            sensor.setDateUpdate( new Date());
+            sensor.setDateUpdate( LocalDate.now());
             sensorRepository.save(sensor);
-            return ResponseEntity.status(201).body(new GenericResponse(1, "The Sensor is active"));
+            return ResponseEntity.ok().body(new GenericResponse(MessageResponse.SENSOR_ACTIVE));
         }
-        return ResponseEntity.ok().body(new GenericResponse(-1, "The Sensor does not exists"));
+        return ResponseEntity.status(201).body(new GenericResponse(MessageResponse.SENSOR_NOT_EXIST));
     }
 
 

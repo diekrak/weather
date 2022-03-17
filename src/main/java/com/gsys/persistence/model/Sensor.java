@@ -1,7 +1,9 @@
 package com.gsys.persistence.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -11,15 +13,15 @@ public class Sensor {
     private String id;
     private String city;
     private String country;
-    private Boolean active;
-    private Date dateCreated;
-    private Date dateUpdate;
+    private boolean active;
+    private LocalDate dateCreated;
+    private LocalDate dateUpdate;
 
 
     public Sensor(){
     }
 
-    public Sensor(String id, String city, String country, Boolean active, Date dateCreated, Date dateUpdate) {
+    public Sensor(String id, String city, String country, Boolean active, LocalDate dateCreated, LocalDate dateUpdate) {
         this.id = id;
         this.city = city;
         this.country = country;
@@ -52,27 +54,27 @@ public class Sensor {
         this.country = country;
     }
 
-    public Boolean getActive() {
+    public boolean getActive() {
         return active;
     }
 
-    public void setActive(Boolean active) {
+    public void setActive(boolean active) {
         this.active = active;
     }
 
-    public Date getDateCreated() {
+    public LocalDate getDateCreated() {
         return dateCreated;
     }
 
-    public void setDateCreated(Date dateCreated) {
+    public void setDateCreated(LocalDate dateCreated) {
         this.dateCreated = dateCreated;
     }
 
-    public Date getDateUpdate() {
+    public LocalDate getDateUpdate() {
         return dateUpdate;
     }
 
-    public void setDateUpdate(Date dateUpdate) {
+    public void setDateUpdate(LocalDate dateUpdate) {
         this.dateUpdate = dateUpdate;
     }
 }
