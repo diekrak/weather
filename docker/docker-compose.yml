@@ -17,6 +17,7 @@ services:
   sensor-server:
     depends_on:
       - mysqldb
+    restart: on-failure
     networks:
       - mysql-nw
     container_name: sensor-server

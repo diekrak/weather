@@ -13,16 +13,19 @@ Simple project to handle weather metrics.
 * The DB so far has no major consideration, besides required indexes for queries.
   * May have a Master-slave replication where the replication can be use fo queries.
   * It seems the retention of readings is up to 30 days, so it may be added an archive process for older data.
-
-* Testing using spock and Mockmv due most cases are integration points (rest or db access)
+* Added just basic validations in rest endpoints.
+* Testing using spock and MockMvc due most cases are integration points (rest or db access)
  
 
 **Run Steps**
 1. Build the project
    * mvn clean install
-2. Start docker compose. (it needs 2 steps due to a sync issue where "sensor-server" starts before mysql is fully up)
+2. Start docker compose (in docker folder). (it needs 2 steps due to a sync issue where "sensor-server" starts before mysql is fully up)
    1. docker-compose up mysqldb
    2. docker-compose up sensor-server
+   
+**NOTE**: Can use now "docker-compose up" also as added a WA in the file to restart if fails, fix is add new scripts at boot time to verify the service start.
+
 
 Alternative:
 1. Start Mysql db
