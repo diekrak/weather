@@ -1,31 +1,32 @@
-package com.gsys.services.jsonMessage;
+package com.gsys.services.json;
 
 import com.gsys.util.MessageResponse;
 
 public class GenericResponse {
 
-    Integer Status;
+    Integer status;
     String message;
 
     public GenericResponse() {
+        //Json Constructor
     }
 
     public GenericResponse(Integer status, String message) {
-        Status = status;
+        this.status = status;
         this.message = message;
     }
 
     public GenericResponse(MessageResponse messageResponse) {
-        Status = messageResponse.getCode();
+        status = messageResponse.getCode();
         this.message = messageResponse.getMessage();
     }
 
     public Integer getStatus() {
-        return Status;
+        return status;
     }
 
     public void setStatus(Integer status) {
-        Status = status;
+        this.status = status;
     }
 
     public String getMessage() {

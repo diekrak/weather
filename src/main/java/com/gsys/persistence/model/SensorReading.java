@@ -1,10 +1,7 @@
 package com.gsys.persistence.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.Date;
 
 @Entity
 @Table(indexes =@Index(name = "index1", columnList = "sensorId , metricId , date"))

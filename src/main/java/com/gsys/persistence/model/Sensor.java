@@ -1,10 +1,8 @@
 package com.gsys.persistence.model;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.time.LocalDate;
-import java.util.Date;
 
 @Entity
 public class Sensor {

@@ -1,11 +1,9 @@
 package com.gsys.services;
 
-import com.gsys.persistence.MetricRepository;
 import com.gsys.persistence.SensorReadingRepository;
-import com.gsys.persistence.SensorRepository;
-import com.gsys.services.jsonMessage.MetricResult;
-import com.gsys.services.jsonMessage.QueryRequest;
-import com.gsys.services.jsonMessage.QueryResponse;
+import com.gsys.services.json.MetricResult;
+import com.gsys.services.json.QueryRequest;
+import com.gsys.services.json.QueryResponse;
 import com.gsys.util.MessageResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,12 +12,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.time.LocalDate;
-import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -29,6 +24,11 @@ public class QueryController {
     @Autowired
     SensorReadingRepository sensorReadingRepository;
 
+    /**
+     * Gets the results based on the specific query
+     * @param queryRequest query request. metricIds is required
+     * @return Results of the query or error if request is not valid
+     */
     @PostMapping("/get_data")
     public ResponseEntity<QueryResponse> registerSensor(@RequestBody QueryRequest queryRequest){
 
@@ -39,12 +39,10 @@ public class QueryController {
 
         boolean datesProvided = queryRequest.getStartDate() != null && queryRequest.getEndDate() != null;
         if (datesProvided){
-            LocalDate tempStartDate = (queryRequest.getStartDate());
-            LocalDate tempEndDate = (queryRequest.getEndDate());
-            if ((ChronoUnit.DAYS.between(tempStartDate, tempEndDate) > 30 )) {
+            if ((ChronoUnit.DAYS.between(queryRequest.getStartDate(), queryRequest.getEndDate()) > 30 )) {
                 return  ResponseEntity.badRequest().body(new QueryResponse(MessageResponse.DATE_OUT_RANGE));
             }
-            if (tempStartDate.isAfter(tempEndDate)) {
+            if (queryRequest.getStartDate().isAfter(queryRequest.getEndDate())) {
                 return  ResponseEntity.badRequest().body(new QueryResponse(MessageResponse.DATE_RANGE_INVALID));
             }
         }
@@ -85,10 +83,5 @@ public class QueryController {
         return results;
     }
 
-    public LocalDate convertToLocalDate(Date dateToConvert) {
-        return dateToConvert.toInstant()
-                .atZone(ZoneId.systemDefault())
-                .toLocalDate();
-    }
 
 }

@@ -1,7 +1,6 @@
-package com.gsys.services.jsonMessage;
+package com.gsys.services.json;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 public class QueryRequest {
@@ -12,6 +11,7 @@ public class QueryRequest {
     LocalDate endDate;
 
     public QueryRequest() {
+        //Json Constructor
     }
 
     public List<String> getSensorIds() {

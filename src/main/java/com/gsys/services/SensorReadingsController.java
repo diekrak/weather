@@ -6,7 +6,7 @@ import com.gsys.persistence.SensorRepository;
 import com.gsys.persistence.model.Metric;
 import com.gsys.persistence.model.Sensor;
 import com.gsys.persistence.model.SensorReading;
-import com.gsys.services.jsonMessage.GenericResponse;
+import com.gsys.services.json.GenericResponse;
 import com.gsys.util.MessageResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -30,8 +30,13 @@ public class SensorReadingsController {
     @Autowired
     MetricRepository metricRepository;
 
+    /**
+     * Adds a new metric reading. I must have valida metricId and sensorId
+     * @param sensorReading Element to save.
+     * @return Response with result of message
+     */
     @PostMapping("/add")
-    public ResponseEntity<GenericResponse> registerSensor(@RequestBody SensorReading sensorReading){
+    public ResponseEntity<GenericResponse> addReading(@RequestBody SensorReading sensorReading){
         Optional<Sensor> sensorOptional = sensorRepository.findById(sensorReading.getSensorId());
         if (sensorOptional.isEmpty()) {
             return ResponseEntity.status(201).body(new GenericResponse(MessageResponse.SENSOR_NOT_EXIST));

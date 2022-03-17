@@ -1,4 +1,4 @@
-package com.gsys.services.jsonMessage;
+package com.gsys.services.json;
 
 public class SensorRequest {
     private String id;
@@ -6,6 +6,7 @@ public class SensorRequest {
     private String country;
 
     public SensorRequest() {
+        //Json Constructor
     }
 
     public String getId() {

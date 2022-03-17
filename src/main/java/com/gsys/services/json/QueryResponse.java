@@ -1,10 +1,7 @@
-package com.gsys.services.jsonMessage;
+package com.gsys.services.json;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.gsys.util.MessageResponse;
 
-import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 
 public class QueryResponse {
@@ -14,6 +11,7 @@ public class QueryResponse {
     List<MetricResult> results;
 
     public QueryResponse() {
+        //Json Constructor
     }
 
     public QueryResponse(MessageResponse messageResponse) {

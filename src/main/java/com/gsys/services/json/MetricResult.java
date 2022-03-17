@@ -1,9 +1,4 @@
-package com.gsys.services.jsonMessage;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import java.util.Date;
-import java.util.List;
+package com.gsys.services.json;
 
 public class MetricResult {
 
@@ -12,6 +7,7 @@ public class MetricResult {
     Double value;
 
     public MetricResult() {
+        //Json Constructor
     }
 
     public MetricResult(String sensorId, Integer metricId, Double value) {
